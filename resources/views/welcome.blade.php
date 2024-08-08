@@ -164,7 +164,7 @@
 </div>
 
 
-<!-- @foreach ($products  as $product) -->
+ @foreach ($products  as $product) 
 
 <form action="/convert-currency/{{ $product->id }}" method="get">
 
@@ -175,9 +175,10 @@
         <option value="GBP" {{ request('toCurrency') == 'GBP' ? 'selected' : '' }}>GBP</option>
     </select>
     <button type="submit">Convert</button>
-
+    
 </form>
-<!-- @endforeach -->
+
+@endforeach
 
                        
                         <div class="row d-flex flex-wrap">
