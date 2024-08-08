@@ -15,7 +15,7 @@ use Session;
         $cart = Session()->get('cart');
    
         $total = 0;
-        // dd($cart);
+       
         foreach ($cart as $product) {
             $total += $product['quantity'] * $product['price'];
         }
@@ -32,7 +32,7 @@ use Session;
     {
         
        $cart = Session()->get('cart');
-// dd(session()->all());
+
         $order = new Order();
         $order->user_id = auth()->id();
         $order->total = 0;
@@ -56,12 +56,6 @@ use Session;
       return redirect()->route('checkout.index');
 
     }
-      
-
-       
-
-     
- 
   
     }
 }

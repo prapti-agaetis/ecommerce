@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+   
+    public function home(Request $request){
 
-    public function home(){
+         $currency = $request->input('currency','USD');
         $products = Product::paginate(5);
       
-        
+       
         return view('welcome', compact('products'));
         
     }
+    
+   
+
     public function sort(Request $request)
     {
         $sortBy = $request->input('sort_by', 'relevance');
@@ -31,7 +37,10 @@ class ProductController extends Controller
         $products = $products->orderBy($sortOrder['column'], $sortOrder['direction'])
             ->paginate(5) 
             ->appends($request->except('page'));
-    
+            
+            foreach ($products as $product) {
+                $product->converted_price = $this->currencyConverter->convert($product->price, 'USD', $currency);
+            }
         return view('welcome', compact('products', 'sortBy'));
     }
     public function getSortOrder($sortBy)

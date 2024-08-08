@@ -8,10 +8,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CurrencyController;
 use Illuminate\Support\Facades\Route;
-
-
-
 
 
 Route::get('/dashboard', function () {
@@ -29,6 +27,9 @@ Route::get('/admin', [ProductController::class,'admin'])->name('admin')->middlew
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
  
+
+Route::get('/recommendations', [ProductController::class, 'showRecommendedProducts'])->name('recommendations');
+    
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
 Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
@@ -37,15 +38,10 @@ Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.updat
 Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 
-//  Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-//     Route::post('/cart/{id}', [CartController::class, 'store'])->name('cart.store');
-//     Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
-//     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-
  Route::get('/search', [SearchController::class,'search']);
 
 
-//  Route::get('/products', [ProductController::class,'index'])->name('products.index');
+
    Route::get('/products', [ProductController::class,'sort'])->name('products');
 
 
@@ -57,7 +53,7 @@ Route::post('/add-to-cart/{id}', [CartController::class, 'add_to_cart'])->name('
 Route::post('/remove-from-cart/{id}', [CartController::class,'remove_from_cart'])->name('remove_from_cart');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
-
+Route::get('/convert-currency/{productId}', [CurrencyController::class, 'convert_currency']);
 
 });
 

@@ -43,7 +43,7 @@ class AdminController extends Controller
             return redirect()->route('admin.create')->withInput()->withErrors($validator);
         }
 
-        // here we will insert product in db
+   
         $product = new Product();
         $product->name = $request->name;
         $product->sku = $request->sku;
@@ -54,15 +54,14 @@ class AdminController extends Controller
         $product->save();
 
         if ($request->image != "") {
-            // here we will store image
+          
             $image = $request->image;
             $ext = $image->getClientOriginalExtension();
-            $imageName = time().'.'.$ext; // Unique image name
+            $imageName = time().'.'.$ext; 
 
-            // Save image to products directory
             $image->move(public_path('uploads/products'), $imageName);
 
-            // Save image name in database products
+           
             $product->image = $imageName;
             $product->save();
         }
@@ -99,7 +98,7 @@ class AdminController extends Controller
             return redirect()->route('admin.edit', $product->id)->withInput()->withErrors($validator);
         }
 
-        // here we will update product
+       
         $product->name = $request->name;
         $product->sku = $request->sku;
         $product->price = $request->price;
@@ -110,18 +109,18 @@ class AdminController extends Controller
         $product->save();
 
         if ($request->image != "") {
-            // delete old image
+     
             File::delete(public_path('uploads/products/'.$product->image));
 
-            // here we will store image
+           
             $image = $request->image;
             $ext = $image->getClientOriginalExtension();
-            $imageName = time().'.'.$ext; // Unique image name
+            $imageName = time().'.'.$ext;
 
-            // Save image to products directory
+          
             $image->move(public_path('uploads/products'), $imageName);
 
-            // Save image name in database
+           
             $product->image = $imageName;
             $product->save();
         }
@@ -133,10 +132,8 @@ class AdminController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // delete image
         File::delete(public_path('uploads/products/'.$product->image));
-
-        // delete product from database
+       
         $product->delete();
 
         return redirect()->route('admin.index')->with('success', 'Product deleted successfully.');

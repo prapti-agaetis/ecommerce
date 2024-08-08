@@ -164,6 +164,21 @@
 </div>
 
 
+<!-- @foreach ($products  as $product) -->
+
+<form action="/convert-currency/{{ $product->id }}" method="get">
+
+    <label for="currency">Select Currency:</label>
+    <select id="currency" name="toCurrency">
+        <option value="USD" {{ request('toCurrency') == 'USD' ? 'selected' : '' }}>USD</option>
+        <option value="EUR" {{ request('toCurrency') == 'EUR' ? 'selected' : '' }}>EUR</option>
+        <option value="GBP" {{ request('toCurrency') == 'GBP' ? 'selected' : '' }}>GBP</option>
+    </select>
+    <button type="submit">Convert</button>
+
+</form>
+<!-- @endforeach -->
+
                        
                         <div class="row d-flex flex-wrap">
                             
@@ -197,7 +212,7 @@
                            
                         </div>
                     </div>
-                  
+           
                 </div>
             </section>
 
@@ -267,6 +282,7 @@
         });
     });
 });
+
 </script>
 
 

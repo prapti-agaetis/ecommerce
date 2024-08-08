@@ -43,16 +43,16 @@ return response()->json(['success' => true]);
 
     public function remove_from_cart(Request $request, $id)
     {
-        // Get the cart
+       
         $cart = Session()->get('cart');
 
-        // Check if the product is in the cart
+     
         if (isset($cart[$id])) {
-            // If the quantity is 1, remove the product from the cart
+           
             if ($cart[$id]['quantity'] == 1) {
                 unset($cart[$id]);
             } else {
-                // Otherwise, decrement the quantity
+               
                 $cart[$id]['quantity']--;
             }
             Session::put('cart', $cart);
@@ -64,7 +64,6 @@ return response()->json(['success' => true]);
 
     public function cart()
     {
-        // Get cart contents
         $cart = Session()->get('cart');
         
         $total = 0; 
@@ -73,10 +72,7 @@ return response()->json(['success' => true]);
     }
      Session::put('total', $total);
 
-        // Debug statement to see if the cart is being retrieved
-       
-
-        // Return cart view with cart contents
+    
         return view('cart', compact('cart','total'));
     }
 }

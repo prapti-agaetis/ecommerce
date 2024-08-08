@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-
+use App\Services\AlgoliaService;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+    
      public function search(Request $request)
     {
         $searchTerm = $request->input('search');
